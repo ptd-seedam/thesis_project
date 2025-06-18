@@ -1,5 +1,5 @@
 # Giới thiệu
-Hệ thống quản lý thư viện thông minh là một giải pháp toàn diện cho việc quản lý thư viện hiện đại, tích hợp hệ thống gợi ý sách thông minh dựa trên sở thích và lịch sử mượn của người dùng. Dự án sử dụng Laravel cho backend và ReactJS cho frontend.
+Hệ thống quản lý thư viện thông minh là một giải pháp toàn diện cho việc quản lý thư viện hiện đại, tích hợp hệ thống gợi ý sách thông minh dựa trên sở thích và lịch sử xem sách trong phiên của người dùng của người dùng. Dự án sử dụng Laravel cho backend và ReactJS cho frontend.
 
 #  Tính năng chính
 
