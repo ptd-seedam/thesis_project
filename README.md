@@ -92,20 +92,26 @@ cd library-management-system
 
 ### Cài đặt backend
 ```bash
-cd backend
-cd laravel_backend
+cd ./backend/laravel_backend
 composer install
 cp .env.example .env
 php artisan key:generate
 ```
 - Cấu hình database trong file .env
-  ```bash
+```bash
   php artisan migrate --seed
   php artisan serve
-  ```
+```
+
+### Cài đặt hệ thống gợi ý
+```bash
+  cd ./LSTM_Recommend_System/API_PREDICT_SERVER
+  python -m venv venv
+  pip install -r requirements.txt
+```
 ### Cài đặt frontend
 ```bash
-cd frontend
+cd ./frontend/web_app_ts
 npm install
 npm start
 ```
