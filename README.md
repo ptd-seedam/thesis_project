@@ -108,6 +108,7 @@ php artisan key:generate
   cd ./LSTM_Recommend_System/API_PREDICT_SERVER
   python -m venv venv
   pip install -r requirements.txt
+  python app.py
 ```
 ### Cài đặt frontend
 ```bash
