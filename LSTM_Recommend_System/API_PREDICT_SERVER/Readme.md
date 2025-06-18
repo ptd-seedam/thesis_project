@@ -24,3 +24,11 @@ Module gợi ý sách sử dụng mô hình LSTM (Long Short-Term Memory) để 
   "session_items": "1, 2, 3, .."
 }
 ```
+#  Quy trình xử lý
+- Thu thập dữ liệu phiên (user actions)
+
+- Tiền xử lý và chuẩn hóa dữ liệu
+
+- Đưa vào mô hình LSTM để dự đoán
+
+- Trả về kết quả gợi ý
