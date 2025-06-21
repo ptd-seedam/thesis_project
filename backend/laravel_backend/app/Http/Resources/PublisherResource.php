@@ -10,9 +10,9 @@ class PublisherResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->P_ID,
-            'name' => $this->P_NAME,
-            'address' => $this->P_ADDRESS,
+            'P_ID' => $this->P_ID,
+            'P_NAME' => $this->P_NAME,
+            'P_ADDRESS' => $this->P_ADDRESS,
             'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
 

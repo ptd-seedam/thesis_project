@@ -10,9 +10,9 @@ class AuthorResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->A_ID,
-            'name' => $this->A_NAME,
-            'description' => $this->A_DESCRIPTION,
+            'A_ID' => $this->A_ID,
+            'A_NAME' => $this->A_NAME,
+            'A_DESCRIPTION' => $this->A_DESCRIPTION,
             'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
 

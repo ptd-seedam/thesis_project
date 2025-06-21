@@ -3,23 +3,22 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AuthorResource;
-use App\Models\Author;
+use App\Services\AuthorService;
 use Illuminate\Http\JsonResponse;
+use App\Models\Author;
 
 class AuthorController extends Controller
 {
+    protected AuthorService $authorService;
+    public function __construct(AuthorService $authorService)
+    {
+        $this->authorService = $authorService;
+    }
     public function index(): JsonResponse
     {
-        $authors = Author::withCount('books')->latest()->paginate(10);
+        $authors = $this->authorService->getAllAuthors();
 
-        return response()->json([
-            'success' => true,
-            'data' => AuthorResource::collection($authors),
-            'meta' => [
-                'current_page' => $authors->currentPage(),
-                'total' => $authors->total(),
-            ],
-        ]);
+        return AuthorResource::collection($authors)->response()->setStatusCode(200);
     }
     public function show(Author $author): JsonResponse
     {

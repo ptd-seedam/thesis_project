@@ -6,31 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BookResource;
+use App\Services\BookService;
 
 class BookController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    protected BookService $bookService;
+    public function __construct(BookService $bookService)
     {
-        $query = Book::query()
-            ->with(['author', 'category', 'publisher'])
-            ->latest();
-
-        // Filter theo các tiêu chí
-        $this->applyFilters($query, $request);
-
-        // Phân trang
-        $perPage = $request->per_page ?? 20;
-        $books = $query->paginate($perPage);
-
-        return response()->json([
-            'success' => true,
-            'data' => BookResource::collection($books),
-            'meta' => [
-                'current_page' => $books->currentPage(),
-                'total_pages' => $books->lastPage(),
-                'total_items' => $books->total(),
-            ],
-        ]);
+        $this->bookService = $bookService;
+    }
+    public function index(): JsonResponse
+    {
+        $books = $this->bookService->getAllBooks();
+        return BookResource::collection($books)->response()->setStatusCode(200);
     }
 
     public function search(Request $request): JsonResponse
@@ -54,6 +42,42 @@ class BookController extends Controller
                       });
             })
             ->paginate($request->per_page ?? 20);
+
+        return response()->json([
+            'success' => true,
+            'data' => BookResource::collection($books),
+            'meta' => [
+                'total' => $books->total(),
+            ],
+        ]);
+    }
+    public function show(int $id): JsonResponse
+    {
+        $book = Book::with(['author', 'category', 'publisher'])->findOrFail($id);
+        return response()->json([
+            'success' => true,
+            'data' => new BookResource($book),
+        ]);
+    }
+    public function allBooksOnAuthor(int $authorId): JsonResponse
+    {
+        $books = Book::with(['author', 'category', 'publisher'])
+            ->where('A_ID', $authorId)
+            ->paginate(20);
+
+        return response()->json([
+            'success' => true,
+            'data' => BookResource::collection($books),
+            'meta' => [
+                'total' => $books->total(),
+            ],
+        ]);
+    }
+    public function allBooksOnCategory(int $categoryId): JsonResponse
+    {
+        $books = Book::with(['author', 'category', 'publisher'])
+            ->where('C_ID', $categoryId)
+            ->paginate(20);
 
         return response()->json([
             'success' => true,
