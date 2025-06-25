@@ -17,7 +17,7 @@ class BookResource extends JsonResource
             'B_AVAILABLE_COPIES' => $this->B_AVAILABLE_COPIES,
             'B_RATE' => (float) $this->B_RATE,
             'B_TOTAL_READ' => $this->B_TOTAL_READ,
-            'B_IMAGE' => $this->B_IMAGE ? asset('storage/'.$this->B_IMAGE) : null,
+            'B_IMAGE' => $this->B_IMAGE ? asset($this->B_IMAGE) : null,
 
             // Relationships
             'author' => $this->whenLoaded('author', function () {

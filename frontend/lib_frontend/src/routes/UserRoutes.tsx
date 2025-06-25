@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Layout from '../components/layouts/Layout';
 import Index from '../pages/Index';
+import BookDetail from '../pages/BookDetail';
+import BooksPageLayout from '../components/layouts/BookPageLayout';
 
 
 const UserRoutes = createBrowserRouter([
@@ -23,11 +25,15 @@ const UserRoutes = createBrowserRouter([
             },
             {
                 path: 'books',
-                element: <div>Books Page</div>,
+                element: <BooksPageLayout />,
                 children: [
                     {
+                        index: true,
+                        element: <div>List of Books</div>
+                    },
+                    {
                         path: ':bookId',
-                        element: <div>Book Details Page</div>
+                        element: <BookDetail/>
                     }
                 ]
             },
@@ -35,6 +41,9 @@ const UserRoutes = createBrowserRouter([
                 path: 'authors',
                 element: <div>Authors Page</div>,
                 children: [
+                    {
+                        index: true,
+                    },
                     {
                         path: ':authorId',
                         element: <div>Author Details Page</div>

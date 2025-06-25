@@ -17,7 +17,7 @@ function Layout() {
 
             <div className="flex-1 flex flex-col justify-center items-center bg-gray-100">
                 <NavBar />
-                <main className="flex-1 overflow-y-auto p-4">
+                <main className="flex-1 w-full overflow-y-auto p-4">
                     <Outlet />
                 </main>
                 <Footer />

@@ -44,50 +44,71 @@ class BookService
     {
         return $this->bookRepo->findByTitle($title);
     }
+
     public function getAllAuthors(): Collection
     {
         return $this->bookRepo->getAllAuthors();
     }
+
     public function getAllCategories(): Collection
     {
         return $this->bookRepo->getAllCategories();
     }
+
     public function getAllPublishers(): Collection
     {
         return $this->bookRepo->getAllPublishers();
     }
+
     public function searchBooks(string $query): Collection
     {
         return $this->bookRepo->search($query);
     }
+
     public function getBooksByCategory(int $categoryId): Collection
     {
         return $this->bookRepo->getBookByCategory($categoryId);
     }
+
     public function decreaseBookStatus(int $bookId): bool
     {
         $book = $this->getBookById($bookId);
 
         if ($book) {
-            if($book->B_AVAILABLE_COPIES <= 0) {
+            if ($book->B_AVAILABLE_COPIES <= 0) {
                 return false; // Không thể mượn sách nếu không còn bản sao nào
             }
             $book->B_AVAILABLE_COPIES = $book->B_AVAILABLE_COPIES - 1;
+
             return $book->save();
         }
+
         return false;
     }
-        public function increaseBookStatus(int $bookId): bool
+
+    public function increaseBookStatus(int $bookId): bool
     {
         $book = $this->getBookById($bookId);
 
         if ($book) {
-            if($book->B_AVAILABLE_COPIES <= 0) {
+            if ($book->B_AVAILABLE_COPIES <= 0) {
                 return false; // Không thể mượn sách nếu không còn bản sao nào
             }
             $book->B_AVAILABLE_COPIES = $book->B_AVAILABLE_COPIES + 1;
+
             return $book->save();
         }
+
         return false;
+    }
+
+    public function getBookByAuthor(int $authorId): Collection
+    {
+        return $this->bookRepo->getBookByAuthor($authorId);
+    }
+
+    public function getBookRandom(int $limit = 10): Collection
+    {
+        return $this->bookRepo->getBookRandom($limit);
     }
 }

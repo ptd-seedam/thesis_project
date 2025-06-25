@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.models import load_model
+from keras.models import load_model
 from sklearn.preprocessing import LabelEncoder
 import pandas as pd
 import joblib
@@ -19,10 +19,11 @@ def load_artifacts():
     
     # Load model
     model_path = '../model/5_30/session_recommendation_model.keras'
+
     if os.path.exists(model_path):
         model = load_model(model_path)
     else:
-        raise FileNotFoundError(f"Model file not found at {model_path}")
+        raise FileNotFoundError(f"Model file not found at {os.path.exists(model_path)}")
     
 
 # Route để kiểm tra server
@@ -60,15 +61,14 @@ def predict():
         predictions = model.predict(sequence, verbose=0)
         
         # Lấy top K recommendations
-        top_k = 20
-        top_k_indices = np.argsort(-predictions, axis=1)[0, :top_k]
-        top_k_items = top_k_indices
-        
+        top_k = 10
+        top_k_indices = np.argsort(-predictions, axis=1)[0]
+        filtered_indices = [int(i) for i in top_k_indices if i < 100][:top_k]
+        print(filtered_indices)
         # Trả về kết quả
         return jsonify({
-            'recommendations': top_k_items.tolist(),
-            'session_items': session_items
-        })
+            'recommendations': filtered_indices,
+        }), 200
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500

@@ -14,6 +14,15 @@ class BorrowingResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'BR_ID' => $this->BR_ID,
+            'BR_DATE' => $this->BR_DATE,
+            'BR_DUE_DATE' => $this->BR_DUE_DATE,
+            'BR_RETURN_DATE' => $this->BR_RETURN_DATE,
+            'BR_STATUS' => $this->BR_STATUS,
+            'user' => new UserResource($this->whenLoaded('user')),
+            'book' => new BookResource($this->whenLoaded('book')),
+            'fine' => $this->whenLoaded('fine') ? new FineResource($this->fine) : null,
+        ];
     }
 }

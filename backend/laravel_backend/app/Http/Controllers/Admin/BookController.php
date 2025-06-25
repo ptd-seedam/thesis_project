@@ -49,19 +49,30 @@ class BookController extends Controller
     public function store(BookRequest $request)
     {
         $data = $request->validated();
-
-        // Xử lý ảnh
-        if ($request->hasFile('B_IMAGE')) {
-            $imageName = time().'_'.Str::random(8).'.'.$request->B_IMAGE->getClientOriginalExtension();
-            $request->B_IMAGE->move(public_path('images/books'), $imageName);
-            $data['B_IMAGE'] = $imageName;
-        } else {
-            $data['B_IMAGE'] = 'default.png';
-        }
+        $data['B_IMAGE'] = $this->handleImageUpload($request);
 
         $this->bookService->createBook($data);
 
         return redirect()->route('admin.books.index')->with('success', 'Tạo sách thành công');
+    }
+
+    /**
+     * Xử lý ảnh upload và trả về đường dẫn ảnh
+     */
+    protected function handleImageUpload(BookRequest $request): string
+    {
+        if ($request->hasFile('B_IMAGE')) {
+            $imageName = time().'_'.Str::random(8).'.'.$request->B_IMAGE->getClientOriginalExtension();
+
+            // Lưu ảnh vào public/images/books
+            $request->B_IMAGE->move(public_path('images/books'), $imageName);
+
+            // Trả về URL đầy đủ để dùng trong API
+            return 'images/books/'.$imageName;
+        }
+
+        // Trả về ảnh mặc định nếu không có ảnh
+        return 'images/books/default.png';
     }
 
     public function edit(int $id)
@@ -84,9 +95,7 @@ class BookController extends Controller
 
         // Xử lý ảnh (nếu có)
         if ($request->hasFile('B_IMAGE')) {
-            $imageName = time().'_'.Str::random(8).'.'.$request->B_IMAGE->getClientOriginalExtension();
-            $request->B_IMAGE->move(public_path('images/books'), $imageName);
-            $data['B_IMAGE'] = $imageName;
+            $data['B_IMAGE'] = $this->handleImageUpload($request);
         } else {
             unset($data['B_IMAGE']); // Không cập nhật ảnh nếu không có file mới
         }

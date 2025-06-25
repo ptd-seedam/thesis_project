@@ -1,64 +1,53 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
-use App\Models\Book;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BookResource;
+use App\Models\Book;
 use App\Services\BookService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
     protected BookService $bookService;
+
     public function __construct(BookService $bookService)
     {
         $this->bookService = $bookService;
     }
+
     public function index(): JsonResponse
     {
         $books = $this->bookService->getAllBooks();
+
         return BookResource::collection($books)->response()->setStatusCode(200);
     }
 
-    public function search(Request $request): JsonResponse
+    public function search($keyword): JsonResponse
     {
-        $request->validate([
-            'keyword' => 'required|string|min:2',
-        ]);
-
-        $books = Book::with(['author', 'category', 'publisher'])
-            ->where(function($query) use ($request) {
-                $query->where('B_TITLE', 'like', '%'.$request->keyword.'%')
-                      ->orWhere('B_ISBN', 'like', '%'.$request->keyword.'%')
-                      ->orWhereHas('author', function($q) use ($request) {
-                          $q->where('A_NAME', 'like', '%'.$request->keyword.'%');
-                      })
-                      ->orWhereHas('category', function($q) use ($request) {
-                          $q->where('C_NAME', 'like', '%'.$request->keyword.'%');
-                      })
-                      ->orWhereHas('publisher', function($q) use ($request) {
-                          $q->where('P_NAME', 'like', '%'.$request->keyword.'%');
-                      });
-            })
-            ->paginate($request->per_page ?? 20);
+        $books = $this->bookService->searchBooks($keyword);
 
         return response()->json([
             'success' => true,
             'data' => BookResource::collection($books),
             'meta' => [
-                'total' => $books->total(),
+                'total' => $books->count(),
             ],
         ]);
     }
+
     public function show(int $id): JsonResponse
     {
         $book = Book::with(['author', 'category', 'publisher'])->findOrFail($id);
+
         return response()->json([
             'success' => true,
             'data' => new BookResource($book),
         ]);
     }
+
     public function allBooksOnAuthor(int $authorId): JsonResponse
     {
         $books = Book::with(['author', 'category', 'publisher'])
@@ -73,6 +62,7 @@ class BookController extends Controller
             ],
         ]);
     }
+
     public function allBooksOnCategory(int $categoryId): JsonResponse
     {
         $books = Book::with(['author', 'category', 'publisher'])
@@ -117,12 +107,25 @@ class BookController extends Controller
 
             $validSortFields = [
                 'B_TITLE', 'B_PUBLIC_DATE', 'B_RATE',
-                'B_TOTAL_READ', 'B_TOTAL_COPIES', 'B_AVAILABLE_COPIES'
+                'B_TOTAL_READ', 'B_TOTAL_COPIES', 'B_AVAILABLE_COPIES',
             ];
 
             if (in_array($sortField, $validSortFields)) {
                 $query->orderBy($sortField, $sortDirection);
             }
         }
+    }
+
+    public function getBookRandom(): JsonResponse
+    {
+        $books = $this->bookService->getBookRandom(10); // mặc định lấy 10 cuốn
+
+        return response()->json([
+            'success' => true,
+            'data' => BookResource::collection($books),
+            'meta' => [
+                'total' => $books->count(),
+            ],
+        ]);
     }
 }

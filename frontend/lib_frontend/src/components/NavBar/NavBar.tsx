@@ -33,24 +33,19 @@ const NavBar: React.FC = () => {
           <h2 className="text-xl font-bold">Nhà sách nụ cười</h2>
         </div>
 
-        {/* Ô tìm kiếm */}
         <div className="flex items-center space-x-2">
           <input
             type="text"
             placeholder="Tìm kiếm sách, tác giả..."
             value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
+            onChange={(e) => {
+              setKeyword(e.target.value);
+              handleSearch();
+            }}
             onKeyDown={handleKeyPress}
             className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <button
-            onClick={handleSearch}
-            className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600"
-          >
-            🔍
-          </button>
         </div>
-
         <div className='flex flex-row items-center '>
           <div>
             <CategoryDropdown

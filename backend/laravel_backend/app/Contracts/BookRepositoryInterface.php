@@ -23,4 +23,5 @@ interface BookRepositoryInterface extends BaseRepositoryInterface
     public function getBookByAuthor(int $authorId, array $columns = ['*'], array $relations = []): Collection;
     public function getBookByPublisher(int $publisherId, array $columns = ['*'], array $relations = []): Collection;
     public function getBookByCategory(int $categoryId): Collection;
+    public function getBookRandom(): Collection;
 }
