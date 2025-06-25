@@ -15,7 +15,6 @@ export interface Book {
   C_ID: number;
   A_ID: number;
   P_ID: number;
-  
   author?: Author;
   category?: Category;
   publisher?: Publisher;

@@ -11,11 +11,11 @@ function Layout() {
     };
 
     return (
-        <div className="flex h-screen overflow-hidden"
+        <div className="flex w-full h-screen overflow-hidden"
             style={{ background: '#B3D5F2' }}
         >
 
-            <div className="flex-1 flex flex-col justify-center items-center bg-gray-100">
+            <div className="flex-1 w-full flex flex-col justify-center items-center bg-gray-100">
                 <NavBar />
                 <main className="flex-1 w-full overflow-y-auto p-4">
                     <Outlet />

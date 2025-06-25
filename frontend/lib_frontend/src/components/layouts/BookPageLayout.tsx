@@ -4,7 +4,7 @@ const BooksPageLayout = () => {
   return (
     <div className="books-container flex flex-col w-full h-full">
       <div className="content-area">
-        <Outlet /> {/* Đây là nơi BookList hoặc BookDetail sẽ render */}
+        <Outlet />
       </div>
     </div>
   );

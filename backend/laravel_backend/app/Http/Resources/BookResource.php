@@ -1,5 +1,7 @@
 <?php
+
 // app/Http/Resources/BookResource.php
+
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
@@ -15,8 +17,9 @@ class BookResource extends JsonResource
             'B_PUBLIC_DATE' => $this->B_PUBLIC_DATE?->format('Y-m-d'),
             'B_TOTAL_COPIES' => $this->B_TOTAL_COPIES,
             'B_AVAILABLE_COPIES' => $this->B_AVAILABLE_COPIES,
-            'B_RATE' => (float) $this->B_RATE,
+            'B_RATE' => $this->B_RATE,
             'B_TOTAL_READ' => $this->B_TOTAL_READ,
+            // Chuyển đổi đường dẫn hình ảnh
             'B_IMAGE' => $this->B_IMAGE ? asset($this->B_IMAGE) : null,
 
             // Relationships

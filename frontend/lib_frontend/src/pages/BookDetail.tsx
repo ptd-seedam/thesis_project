@@ -44,7 +44,7 @@ function BookDetail() {
                                     alt={book.B_TITLE}
                                     className="w-full max-w-xs h-auto rounded-lg shadow-lg object-cover mb-4"
                                 />
-                                {book.B_AVAILABLE_COPIES > 0 ? (
+                                {Number(book.B_AVAILABLE_COPIES) > 0 ? (
                                     <Link
                                         to={`/borrowing/${book.B_ID}`}
                                         className="w-full bg-blue-500 text-white text-center px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
@@ -97,7 +97,9 @@ function BookDetail() {
                                     <div className="flex flex-wrap">
                                         <span className="text-gray-600 font-medium w-32">Số bản có sẵn:</span>
                                         <span className={`flex-1 font-medium ${book.B_AVAILABLE_COPIES > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                            {book.B_AVAILABLE_COPIES} / {book.B_TOTAL_COPIES}
+                                            <span>
+                                                {Number(book.B_AVAILABLE_COPIES).toLocaleString() || '0'} / {Number(book.B_TOTAL_COPIES).toLocaleString() || '0'}
+                                            </span>
                                         </span>
                                     </div>
                                 </div>
