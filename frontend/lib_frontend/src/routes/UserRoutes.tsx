@@ -3,16 +3,18 @@ import Layout from '../components/layouts/Layout';
 import Index from '../pages/Index';
 import BookDetail from '../pages/BookDetail';
 import BooksPageLayout from '../components/layouts/BookPageLayout';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
 
 
 const UserRoutes = createBrowserRouter([
     {
         path: '/login',
-        element: <div>Login Page</div>
+        element: <Login/>
     },
     {
         path: '/register',
-        element: <div>Register Page</div>
+        element: <Register/>
     },
     {
         path: '/',

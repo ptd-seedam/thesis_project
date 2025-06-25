@@ -35,7 +35,7 @@ function Index() {
           <div className='w-full'>
             {booksPredict && booksPredict.length > 0 && (
               <>
-                <SlideBook title='Sách ợi ý cho bạn' books={booksPredict} />
+                <SlideBook title='Sách gợi ý cho bạn' books={booksPredict} />
               </>
             )}
           </div>
