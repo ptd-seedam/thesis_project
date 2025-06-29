@@ -2,6 +2,7 @@ import React from 'react';
 import SlideBook from '../components/SlideBook/SlideBook';
 import { SlideBookHook } from '../hooks/SlideBookHook';
 
+
 function Index() {
   const { books, booksPredict } = SlideBookHook();
 
@@ -44,5 +45,6 @@ function Index() {
     </div>
   );
 }
+
 
 export default Index;

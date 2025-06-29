@@ -1,6 +1,8 @@
 import NavBar from '../NavBar/NavBar'
 import Footer from '../Footer/Footer'
 import { Outlet } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Layout() {
     const scrollToTop = () => {
@@ -11,6 +13,7 @@ function Layout() {
     };
 
     return (
+        
         <div className="flex w-full h-screen overflow-hidden"
             style={{ background: '#B3D5F2' }}
         >
@@ -18,6 +21,7 @@ function Layout() {
             <div className="flex-1 w-full flex flex-col justify-center items-center bg-gray-100">
                 <NavBar />
                 <main className="flex-1 w-full overflow-y-auto p-4">
+                    <ToastContainer position="top-right" autoClose={3000} />
                     <Outlet />
                 </main>
                 <Footer />

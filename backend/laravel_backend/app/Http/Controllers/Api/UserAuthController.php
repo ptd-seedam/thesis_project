@@ -35,16 +35,13 @@ class UserAuthController extends Controller
 
     public function login(AuthRequest $request)
     {
-        $data = $request->validated();
-        $data['password'] = bcrypt($data['password']);
-
         $credentials = $request->only('email', 'password');
 
-        if (! $token = Auth::attempt($credentials)) {
+        if (! $token = Auth::guard('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $user = Auth::user();
+        $user = Auth::guard('api')->user();
 
         return response()->json([
             'message' => 'Đăng nhập thành công',

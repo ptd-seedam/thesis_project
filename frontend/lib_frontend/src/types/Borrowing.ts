@@ -7,8 +7,8 @@ export interface Borrowing {
   BR_DATE: Date | string;
   BR_DUE_DATE: Date | string;
   BR_RETURN_DATE?: Date | string | null;
-  BR_STATUS: string;
-  U_ID: number;
+  BR_STATUS: string | null;
+  U_ID: number | null;
   B_ID: number;
   
   user?: User;

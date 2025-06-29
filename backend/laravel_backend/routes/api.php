@@ -4,6 +4,7 @@
 
 use App\Http\Controllers\Api\AuthorController;
 use App\Http\Controllers\Api\BookController;
+use App\Http\Controllers\Api\BorrowingController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PredictController;
 use App\Http\Controllers\Api\UserAuthController;
@@ -29,8 +30,10 @@ Route::prefix('user')->group(function () {
     Route::get('/books/authors', [BookController::class, 'authors']);
     Route::get('/books/publishers', [BookController::class, 'publishers']);
 
-    Route::middleware('auth:sanctum')->group(function () {
+
+    Route::middleware('auth:api')->group(function () {
         Route::get('/profile', [UserAuthController::class, 'profile']);
         Route::post('/logout', [UserAuthController::class, 'logout']);
+        Route::post('/borrow/{bookId}', [BorrowingController::class, 'store']);
     });
 });
