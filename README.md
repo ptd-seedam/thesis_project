@@ -80,6 +80,7 @@ Hệ thống quản lý thư viện thông minh là một giải pháp toàn di�
 - MySQL 8.x
 
 - NPM/Yarn
+- Python 3.9+
 
 ## Các bước cài đặt
 
