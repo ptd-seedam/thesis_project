@@ -104,7 +104,7 @@
                         <input type="file" class="form-control-file" id="B_IMAGE" name="B_IMAGE" accept="image/*">
                     </div>
                     <div class="form-group">
-                        <img src="{{ asset('images/books/' . $book->B_IMAGE) }}" alt="{{ $book->B_TITLE }}"
+                        <img src="{{ asset($book->B_IMAGE) }}" alt="{{ $book->B_TITLE }}"
                             width="120">
                     </div>
                     <button type="submit" class="btn btn-primary">Sửa sách</button>
