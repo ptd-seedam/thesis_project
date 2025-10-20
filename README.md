@@ -87,7 +87,7 @@ Hệ thống quản lý thư viện thông minh là một giải pháp toàn di�
 ### Clone dự án
 
 ```bash
-git clone https://github.com/ptd-seedam/library_management.git
+git clone https://github.com/ptd-seedam/thesis_project.git
 cd library-management-system
 ```
 
@@ -120,6 +120,7 @@ npm start
 # 📞 Liên hệ
 Email: seedam5000@gmail.com
 Họ và tên: Phạm Trí Đạt
+
 
 
 
